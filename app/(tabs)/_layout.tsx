@@ -17,20 +17,18 @@ function TabBarItem({
 	return (
 		<View
 			className={cn(
-				"flex flex-row items-center py-3 px-5 rounded-full mt-6 justify-center min-w-[90px]",
-				focused && "bg-purple-400"
+				"flex-row items-center justify-center py-3 px-5 rounded-full mt-6 min-w-[90px]",
+				focused ? "bg-purple-400" : "bg-transparent"
 			)}>
 			<SymbolView
-				name={icon ? icon : "house.fill"}
+				name={icon}
 				size={20}
 				tintColor={focused ? "white" : colors.gray[500]}
 				weight="medium"
 			/>
 			{focused && (
-				<Text
-					className={cn("ml-1", focused ? "text-white" : "text-gray-500")}
-					numberOfLines={1}>
-					{title ? title : "Home"}
+				<Text className="ml-1 text-white text-sm" numberOfLines={1}>
+					{title}
 				</Text>
 			)}
 		</View>
@@ -43,15 +41,16 @@ const TabsLayout = () => {
 			screenOptions={{
 				tabBarShowLabel: false,
 				tabBarItemStyle: {
-					width: "100%",
-					height: "100%",
+					flex: 1,
 					justifyContent: "center",
 					alignItems: "center",
 				},
 				tabBarStyle: {
 					paddingHorizontal: 20,
 					backgroundColor: "transparent",
-					borderColor: "transparent",
+					borderTopWidth: 0,
+					elevation: 0,
+					shadowOpacity: 0,
 				},
 			}}>
 			<Tabs.Screen
