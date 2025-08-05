@@ -17,7 +17,7 @@ function TabBarItem({
 	return (
 		<View
 			className={cn(
-				"flex-row items-center justify-center py-5 mt-4 -ml-0.5 px-5 rounded-full min-w-[90px] ",
+				"flex-row items-center justify-center py-5 mt-4 -ml-0.5 px-5 rounded-full min-w-[90px]",
 				focused ? "bg-purple-400" : "bg-transparent"
 			)}>
 			<SymbolView
@@ -27,7 +27,9 @@ function TabBarItem({
 				weight="medium"
 			/>
 			{focused && (
-				<Text className="ml-1 text-gray-950 text-sm" numberOfLines={1}>
+				<Text
+					className="ml-1 text-gray-950 text-sm font-semibold"
+					numberOfLines={1}>
 					{title}
 				</Text>
 			)}
@@ -47,7 +49,7 @@ const TabsLayout = () => {
 				},
 				tabBarStyle: {
 					paddingHorizontal: 0,
-					backgroundColor: "#0f0D23",
+					backgroundColor: colors.slate[900] /* "#0f0D23" */,
 					borderRadius: 50,
 					marginHorizontal: 10,
 					marginBottom: 36,
@@ -56,6 +58,7 @@ const TabsLayout = () => {
 					overflow: "hidden",
 					elevation: 0,
 					shadowOpacity: 0,
+					borderColor: "transparent",
 				},
 			}}>
 			<Tabs.Screen
