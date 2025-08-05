@@ -8,8 +8,8 @@ export default function Index() {
 				justifyContent: "center",
 				alignItems: "center",
 			}}>
-			<Text className="text-red-500">Welcome!</Text>
-			<Text className="text-blue-500">Welcome!</Text>
+			<Text className="text-accent font-medium text-3xl">Welcome!</Text>
+			<Text className="text-primary text-5xl font-bold">Welcome!</Text>
 		</View>
 	)
 }
