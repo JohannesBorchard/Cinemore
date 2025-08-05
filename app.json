@@ -6,7 +6,7 @@
 		"orientation": "portrait",
 		"icon": "./assets/images/logo.png",
 		"scheme": "movies",
-		"userInterfaceStyle": "automatic",
+		"userInterfaceStyle": "dark",
 		"newArchEnabled": true,
 		"ios": {
 			"supportsTablet": true
