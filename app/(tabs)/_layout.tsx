@@ -23,7 +23,7 @@ function TabBarItem({
 			<SymbolView
 				name={icon}
 				size={20}
-				tintColor={focused ? colors.gray[950] : colors.gray[400]}
+				tintColor={focused ? colors.purple[950] : colors.purple[300]}
 				weight="medium"
 			/>
 			{focused && (
