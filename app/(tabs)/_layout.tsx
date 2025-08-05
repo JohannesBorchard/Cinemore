@@ -16,7 +16,7 @@ function TabBarIcon({
 	return (
 		<View
 			className={cn(
-				"flex flex-row items-center p-2 rounded-full mt-6",
+				"flex flex-row items-center p-4 rounded-full mt-6",
 				focused && "bg-purple-400"
 			)}
 			style={{ minWidth: 80 }}>
@@ -44,6 +44,8 @@ const TabsLayout = () => {
 				},
 				tabBarStyle: {
 					paddingHorizontal: 20,
+					backgroundColor: "transparent",
+					borderColor: "transparent",
 				},
 			}}>
 			<Tabs.Screen
