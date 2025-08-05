@@ -17,10 +17,9 @@ function TabBarItem({
 	return (
 		<View
 			className={cn(
-				"flex flex-row items-center py-3 px-5 rounded-full mt-6 justify-center",
+				"flex flex-row items-center py-3 px-5 rounded-full mt-6 justify-center min-w-[90px]",
 				focused && "bg-purple-400"
-			)}
-			style={{ minWidth: 90 }}>
+			)}>
 			<SymbolView
 				name={icon ? icon : "house.fill"}
 				size={20}
@@ -45,16 +44,12 @@ const TabsLayout = () => {
 				tabBarShowLabel: false,
 				tabBarItemStyle: {
 					width: "100%",
-					/* minWidth: 120, */
 					height: "100%",
 					justifyContent: "center",
 					alignItems: "center",
-					paddingHorizontal: 0, // Kein horizontales Padding
-					marginHorizontal: 0, // Kein Margin
 				},
 				tabBarStyle: {
-					paddingHorizontal: 20, // Auf 0 setzen
-
+					paddingHorizontal: 20,
 					backgroundColor: "transparent",
 					borderColor: "transparent",
 				},
