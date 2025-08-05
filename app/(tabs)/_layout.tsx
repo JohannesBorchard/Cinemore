@@ -3,8 +3,9 @@ import { Tabs } from "expo-router"
 import { SymbolView, type SFSymbol } from "expo-symbols"
 import React from "react"
 import { Text, View } from "react-native"
+import colors from "tailwindcss/colors"
 
-function TabBarIcon({
+function TabBarItem({
 	title,
 	icon,
 	focused,
@@ -16,19 +17,23 @@ function TabBarIcon({
 	return (
 		<View
 			className={cn(
-				"flex flex-row items-center p-4 rounded-full mt-6",
+				"flex flex-row items-center py-3 px-5 rounded-full mt-6 justify-center",
 				focused && "bg-purple-400"
 			)}
-			style={{ minWidth: 80 }}>
+			style={{ minWidth: 90 }}>
 			<SymbolView
 				name={icon ? icon : "house.fill"}
 				size={20}
-				tintColor={focused ? "white" : "black"}
+				tintColor={focused ? "white" : colors.gray[500]}
 				weight="medium"
 			/>
-			<Text className={cn("ml-1", focused ? "text-white" : "text-black")}>
-				{title ? title : "Home"}
-			</Text>
+			{focused && (
+				<Text
+					className={cn("ml-1", focused ? "text-white" : "text-gray-500")}
+					numberOfLines={1}>
+					{title ? title : "Home"}
+				</Text>
+			)}
 		</View>
 	)
 }
@@ -39,11 +44,17 @@ const TabsLayout = () => {
 			screenOptions={{
 				tabBarShowLabel: false,
 				tabBarItemStyle: {
-					width: 200,
-					minWidth: 80,
+					width: "100%",
+					/* minWidth: 120, */
+					height: "100%",
+					justifyContent: "center",
+					alignItems: "center",
+					paddingHorizontal: 0, // Kein horizontales Padding
+					marginHorizontal: 0, // Kein Margin
 				},
 				tabBarStyle: {
-					paddingHorizontal: 20,
+					paddingHorizontal: 20, // Auf 0 setzen
+
 					backgroundColor: "transparent",
 					borderColor: "transparent",
 				},
@@ -54,7 +65,7 @@ const TabsLayout = () => {
 					title: "Home",
 					headerShown: false,
 					tabBarIcon: ({ focused }) => (
-						<TabBarIcon title="Home" icon="house" focused={focused} />
+						<TabBarItem title="Home" icon="house" focused={focused} />
 					),
 				}}
 			/>
@@ -64,7 +75,7 @@ const TabsLayout = () => {
 					title: "Search",
 					headerShown: false,
 					tabBarIcon: ({ focused }) => (
-						<TabBarIcon
+						<TabBarItem
 							title="Search"
 							icon="magnifyingglass"
 							focused={focused}
@@ -78,7 +89,7 @@ const TabsLayout = () => {
 					title: "Profile",
 					headerShown: false,
 					tabBarIcon: ({ focused }) => (
-						<TabBarIcon title="Profile" icon="person" focused={focused} />
+						<TabBarItem title="Profile" icon="person" focused={focused} />
 					),
 				}}
 			/>
@@ -88,7 +99,7 @@ const TabsLayout = () => {
 					title: "Saved",
 					headerShown: false,
 					tabBarIcon: ({ focused }) => (
-						<TabBarIcon title="Saved" icon="bookmark" focused={focused} />
+						<TabBarItem title="Saved" icon="bookmark" focused={focused} />
 					),
 				}}
 			/>
