@@ -15,7 +15,7 @@ export function TabBarItem({
 	return (
 		<View
 			className={cn(
-				"flex-row items-center justify-center py-5 mt-4 -ml-0.5 px-5 rounded-full min-w-[90px]",
+				"flex-row items-center justify-center py-5 mt-5 -ml-0.5 px-5 rounded-full min-w-[90px]",
 				focused ? "bg-purple-400" : "bg-transparent"
 			)}>
 			<SymbolView

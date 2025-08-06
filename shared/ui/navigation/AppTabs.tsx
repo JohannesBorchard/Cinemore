@@ -22,19 +22,20 @@ export function AppTabs() {
 					justifyContent: "center",
 					alignItems: "center",
 					paddingHorizontal: 20, // breiterer Klickbereich
-					minWidth: 90, // breiter als nur Icon
+					minWidth: 90, // breiter als nur Icon,
 				},
 				sceneStyle: { backgroundColor: "transparent" },
 				tabBarStyle: {
 					backgroundColor: colors.slate[900],
 					borderRadius: 50,
 					marginBottom: Math.max(36, insets.bottom + 10),
-					height: 54,
+					height: 56,
 					position: "absolute",
 					overflow: "hidden",
 					elevation: 0,
 					shadowOpacity: 0,
 					borderColor: "transparent",
+					alignItems: "center",
 				},
 			}}>
 			{screens.map((screen) => (
