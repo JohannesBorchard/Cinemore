@@ -20,7 +20,7 @@ export default function Index() {
 	} = useFetch(fetchMoviesCallback)
 
 	const renderHeader = () => (
-		<View className="px-5 pt-20 pb-5">
+		<View className="pt-20 pb-5">
 			<View className="flex-row items-center gap-2 w-fit justify-center leading-none mb-5">
 				<SymbolView
 					name="film"
@@ -45,7 +45,7 @@ export default function Index() {
 						onPress={() => router.push("/search")}
 						placeholder="Search for a movie"
 					/>
-					<Text className="text-lg text-white font-bold mt-5 mb-3">
+					<Text className="text-2xl text-white font-bold mt-5">
 						Latest Movies
 					</Text>
 				</>
@@ -65,8 +65,8 @@ export default function Index() {
 	}
 
 	const renderMovieItem = ({ item }: { item: Movie }) => (
-		<View className="px-5 py-2">
-			<Text className="text-white">{item.title}</Text>
+		<View>
+			<Text className="text-slate-400 text-base">{item.title}</Text>
 		</View>
 	)
 
@@ -79,6 +79,11 @@ export default function Index() {
 				ListHeaderComponent={renderHeader}
 				showsVerticalScrollIndicator={false}
 				contentContainerStyle={{ paddingBottom: 40 }}
+				keyExtractor={(item) => item.id.toString()}
+				numColumns={3}
+				columnWrapperClassName="justify-start gap-2 pr-2 mb-2 flex-wrap"
+				className="pb-32 px-5"
+				/* scrollEnabled={false} */
 			/>
 		</View>
 	)

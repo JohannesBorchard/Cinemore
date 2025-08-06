@@ -19,7 +19,7 @@ function SearchBar({
 				weight="medium"
 			/>
 			<TextInput
-				onPress={onPress}
+				/* onPress={onPress} */
 				className="text-slate-300 font-medium text-lg ml-3 flex-1  leading-tight"
 				placeholderTextColor={colors.slate[500]}
 				placeholder={placeholder}
