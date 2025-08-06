@@ -4,13 +4,101 @@ import { useFetch } from "@/shared/model/useFetch"
 import SearchBar from "@/shared/ui/SearchBar"
 import { useRouter } from "expo-router"
 import { SymbolView } from "expo-symbols"
-import { useCallback } from "react"
+import { memo, useCallback, useMemo } from "react"
 import { ActivityIndicator, FlatList, Image, Text, View } from "react-native"
 import colors from "tailwindcss/colors"
 
-export default function Index() {
+interface Movie {
+	id: number
+	title: string
+	overview?: string
+	poster_path?: string
+	backdrop_path?: string
+	release_date?: string
+	vote_average?: number
+	genre_ids?: number[]
+}
+
+function AppLogo() {
+	return (
+		<View className="flex-row items-center gap-2 w-fit justify-center leading-none mb-5">
+			<SymbolView
+				name="film"
+				size={45}
+				tintColor={colors.purple[400]}
+				weight="medium"
+			/>
+			<Text className="text-purple-300 font-bold text-4xl">Cinemore</Text>
+		</View>
+	)
+}
+
+function SearchSection() {
 	const router = useRouter()
 
+	return (
+		<>
+			<SearchBar
+				onPress={() => router.push("/search")}
+				placeholder="Search for a movie"
+			/>
+			<Text className="text-2xl text-white font-bold mt-5">Latest Movies</Text>
+		</>
+	)
+}
+
+// Props ändern sich häufig - memo sinnvoll
+const LoadingErrorState = memo(function LoadingErrorState({
+	loading,
+	error,
+}: {
+	loading: boolean
+	error: Error | null
+}) {
+	if (loading) {
+		return (
+			<ActivityIndicator
+				size="large"
+				color={colors.purple[500]}
+				className="mt-10 self-center"
+			/>
+		)
+	}
+
+	if (error) {
+		return <Text className="text-red-500">Error: {error?.message}</Text>
+	}
+
+	return null
+})
+
+// FlatList Item - memo sehr wichtig für Performance
+const MovieItem = memo(function MovieItem({ item }: { item: Movie }) {
+	return (
+		<View>
+			<Text className="text-slate-400 text-base">{item.title}</Text>
+		</View>
+	)
+})
+
+// Header Komponente - Props ändern sich selten, memo sinnvoll
+const ListHeader = memo(function ListHeader({
+	loading,
+	error,
+}: {
+	loading: boolean
+	error: Error | null
+}) {
+	return (
+		<View className="pt-20 pb-5">
+			<AppLogo />
+			<LoadingErrorState loading={loading} error={error} />
+			{!loading && !error && <SearchSection />}
+		</View>
+	)
+})
+
+export default function Index() {
 	const fetchMoviesCallback = useCallback(() => fetchMovies({ query: "" }), [])
 
 	const {
@@ -19,55 +107,31 @@ export default function Index() {
 		error: moviesError,
 	} = useFetch(fetchMoviesCallback)
 
-	const renderHeader = () => (
-		<View className="pt-20 pb-5">
-			<View className="flex-row items-center gap-2 w-fit justify-center leading-none mb-5">
-				<SymbolView
-					name="film"
-					size={45}
-					tintColor={colors.purple[400]}
-					weight="medium"
-				/>
-				<Text className="text-purple-300 font-bold text-4xl">Cinemore</Text>
-			</View>
-
-			{moviesLoading ? (
-				<ActivityIndicator
-					size="large"
-					color={colors.purple[500]}
-					className="mt-10 self-center"
-				/>
-			) : moviesError ? (
-				<Text className="text-red-500">Error: {moviesError?.message}</Text>
-			) : (
-				<>
-					<SearchBar
-						onPress={() => router.push("/search")}
-						placeholder="Search for a movie"
-					/>
-					<Text className="text-2xl text-white font-bold mt-5">
-						Latest Movies
-					</Text>
-				</>
-			)}
-		</View>
+	const headerComponent = useMemo(
+		() => <ListHeader loading={moviesLoading} error={moviesError} />,
+		[moviesLoading, moviesError]
 	)
 
-	interface Movie {
-		id: number
-		title: string
-		overview?: string
-		poster_path?: string
-		backdrop_path?: string
-		release_date?: string
-		vote_average?: number
-		genre_ids?: number[]
-	}
+	const renderMovieItem = useCallback(
+		({ item }: { item: Movie }) => <MovieItem item={item} />,
+		[]
+	)
 
-	const renderMovieItem = ({ item }: { item: Movie }) => (
-		<View>
-			<Text className="text-slate-400 text-base">{item.title}</Text>
-		</View>
+	const keyExtractor = useCallback((item: Movie) => item.id.toString(), [])
+
+	const flatListProps = useMemo(
+		() => ({
+			showsVerticalScrollIndicator: false,
+			contentContainerStyle: { paddingBottom: 40 },
+			numColumns: 3 as const,
+			columnWrapperClassName: "justify-start gap-2 pr-2 mb-2 flex-wrap",
+			className: "pb-32 px-5",
+			removeClippedSubviews: true,
+			maxToRenderPerBatch: 10,
+			initialNumToRender: 10,
+			windowSize: 10,
+		}),
+		[]
 	)
 
 	return (
@@ -76,14 +140,9 @@ export default function Index() {
 			<FlatList
 				data={movies || []}
 				renderItem={renderMovieItem}
-				ListHeaderComponent={renderHeader}
-				showsVerticalScrollIndicator={false}
-				contentContainerStyle={{ paddingBottom: 40 }}
-				keyExtractor={(item) => item.id.toString()}
-				numColumns={3}
-				columnWrapperClassName="justify-start gap-2 pr-2 mb-2 flex-wrap"
-				className="pb-32 px-5"
-				/* scrollEnabled={false} */
+				ListHeaderComponent={headerComponent}
+				keyExtractor={keyExtractor}
+				{...flatListProps}
 			/>
 		</View>
 	)
