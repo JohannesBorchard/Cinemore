@@ -12,7 +12,8 @@
 		"**/Thumbs.db": true,
 		"**/.vscode": true,
 		"**/node_modules": true,
-		"**/.next": true
+		"**/.next": true,
+		".expo": true
 	},
-	"hide-files.files": []
+	"hide-files.files": [".expo"]
 }
