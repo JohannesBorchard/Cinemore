@@ -12,11 +12,6 @@ export async function fetchMovies({
 		? `${TMDB_CONFIG.BASE_URL}/search/movie?query=${encodeURIComponent(query)}&api_key=${TMDB_CONFIG.API_KEY}`
 		: `${TMDB_CONFIG.BASE_URL}/discover/movie?sort_by=popularity.desc&api_key=${TMDB_CONFIG.API_KEY}`
 
-	console.log(
-		"🌐 Fetching from:",
-		endpoint.replace(TMDB_CONFIG.API_KEY!, "API_KEY_HIDDEN")
-	)
-
 	const response = await fetch(endpoint, {
 		method: "GET",
 		headers: {
@@ -33,6 +28,5 @@ export async function fetchMovies({
 	}
 
 	const data = await response.json()
-	console.log("✅ Movies fetched:", data.results?.length || 0)
 	return data.results
 }
