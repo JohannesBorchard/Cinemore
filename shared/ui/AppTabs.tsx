@@ -1,7 +1,7 @@
-import { Tabs } from "expo-router"
-import colors from "tailwindcss/colors"
 import { TabBarItem } from "@/shared/ui/TabBarItem"
+import { Tabs } from "expo-router"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
+import colors from "tailwindcss/colors"
 
 export function AppTabs() {
 	const insets = useSafeAreaInsets()
@@ -21,6 +21,8 @@ export function AppTabs() {
 					flex: 1,
 					justifyContent: "center",
 					alignItems: "center",
+					paddingHorizontal: 20, // breiterer Klickbereich
+					minWidth: 90, // breiter als nur Icon
 				},
 				sceneStyle: { backgroundColor: "transparent" },
 				tabBarStyle: {
