@@ -1,4 +1,3 @@
-import { Movie } from "@/interfaces/interfaces"
 import { memo } from "react"
 import { Text, View } from "react-native"
 

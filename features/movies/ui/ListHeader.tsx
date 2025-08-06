@@ -1,5 +1,5 @@
+import { SearchSection } from "@/features/movies/ui/SearchSection"
 import { LoadingErrorState } from "@/shared/ui/LoadingErrorState"
-import { SearchSection } from "@/shared/ui/SearchSection"
 import { memo } from "react"
 import { View } from "react-native"
 

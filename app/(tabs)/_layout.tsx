@@ -1,6 +1,6 @@
-import { images } from "@/constants/images"
-import { AppLogo } from "@/shared/ui/AppLogo"
-import { AppTabs } from "@/shared/ui/AppTabs"
+import { images } from "@/shared/config/images"
+import { AppLogo } from "@/shared/ui/branding/AppLogo"
+import { AppTabs } from "@/shared/ui/navigation/AppTabs"
 import { Image, View } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 

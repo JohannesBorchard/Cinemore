@@ -1,4 +1,3 @@
-import { Movie } from "@/interfaces/interfaces"
 import { fetchMovies } from "@/shared/api/tmdb"
 import { useFetch } from "@/shared/model/useFetch"
 import { useCallback } from "react"

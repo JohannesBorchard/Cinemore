@@ -1,4 +1,4 @@
-import { TabBarItem } from "@/shared/ui/TabBarItem"
+import { TabBarItem } from "@/shared/ui/navigation/TabBarItem"
 import { Tabs } from "expo-router"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import colors from "tailwindcss/colors"

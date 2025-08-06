@@ -1,4 +1,4 @@
-import SearchBar from "@/shared/ui/SearchBar"
+import SearchBar from "@/shared/ui/forms/SearchBar"
 import { useRouter } from "expo-router"
 import { Text } from "react-native"
 
