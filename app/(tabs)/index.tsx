@@ -1,6 +1,5 @@
 import { Movie } from "@/interfaces/interfaces"
-import { fetchMovies } from "@/shared/api/tmdb"
-import { useFetch } from "@/shared/model/useFetch"
+import { useMovies } from "@/shared/model/useMovies"
 import { ListHeader } from "@/shared/ui/ListHeader"
 import { MovieItem } from "@/shared/ui/MovieItem"
 import React, { useCallback, useMemo } from "react"
@@ -9,23 +8,11 @@ import { useSafeAreaInsets } from "react-native-safe-area-context"
 
 export default function Index() {
 	const insets = useSafeAreaInsets()
-	const fetchMoviesCallback = useCallback(() => fetchMovies({ query: "" }), [])
-
-	const {
-		data: movies,
-		loading: moviesLoading,
-		error: moviesError,
-	} = useFetch(fetchMoviesCallback)
+	const { movies, loading, error } = useMovies()
 
 	const headerComponent = useMemo(
-		() => (
-			<ListHeader
-				loading={moviesLoading}
-				error={moviesError}
-				topInset={insets.top}
-			/>
-		),
-		[moviesLoading, moviesError, insets.top]
+		() => <ListHeader loading={loading} error={error} topInset={insets.top} />,
+		[loading, error, insets.top]
 	)
 
 	const renderMovieItem = useCallback(
@@ -39,7 +26,7 @@ export default function Index() {
 		() => ({
 			showsVerticalScrollIndicator: false,
 			contentContainerStyle: {
-				paddingBottom: Math.max(140, insets.bottom + 100), // Platz für TabBar
+				paddingBottom: Math.max(140, insets.bottom + 100),
 			},
 			numColumns: 3 as const,
 			columnWrapperClassName: "justify-start gap-2 pr-2 mb-2 flex-wrap",
@@ -54,7 +41,7 @@ export default function Index() {
 	return (
 		<View className="flex-1">
 			<FlatList
-				data={movies || []}
+				data={movies}
 				renderItem={renderMovieItem}
 				ListHeaderComponent={headerComponent}
 				keyExtractor={keyExtractor}
