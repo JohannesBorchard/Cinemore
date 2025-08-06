@@ -1,6 +1,6 @@
 import { useMovies } from "@/features/movies/model/useMovies"
 import { ListHeader } from "@/features/movies/ui/ListHeader"
-import { MovieItem } from "@/features/movies/ui/MovieItem"
+import { MovieCard } from "@/features/movies/ui/MovieItem"
 import React, { useCallback, useMemo } from "react"
 import { FlatList, View } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
@@ -15,7 +15,7 @@ export default function Index() {
 	)
 
 	const renderMovieItem = useCallback(
-		({ item }: { item: Movie }) => <MovieItem item={item} />,
+		({ item }: { item: Movie }) => <MovieCard movie={item} />,
 		[]
 	)
 
@@ -28,7 +28,7 @@ export default function Index() {
 				paddingBottom: Math.max(140, insets.bottom + 100),
 			},
 			numColumns: 3 as const,
-			columnWrapperClassName: "justify-start gap-2 pr-2 mb-2 flex-wrap",
+			columnWrapperClassName: "justify-start gap-2 pr-2 mb-2",
 			removeClippedSubviews: true,
 			maxToRenderPerBatch: 10,
 			initialNumToRender: 10,
