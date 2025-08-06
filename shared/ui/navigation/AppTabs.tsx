@@ -23,13 +23,14 @@ export function AppTabs() {
 					alignItems: "center",
 					paddingHorizontal: 20, // breiterer Klickbereich
 					minWidth: 90, // breiter als nur Icon,
+					marginTop: 8,
 				},
 				sceneStyle: { backgroundColor: "transparent" },
 				tabBarStyle: {
 					backgroundColor: colors.slate[900],
 					borderRadius: 50,
 					marginBottom: Math.max(36, insets.bottom + 10),
-					height: 56,
+					height: 55,
 					position: "absolute",
 					overflow: "hidden",
 					elevation: 0,
