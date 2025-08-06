@@ -27,8 +27,8 @@ export default function Index() {
 			contentContainerStyle: {
 				paddingBottom: Math.max(140, insets.bottom + 100),
 			},
-			numColumns: 3 as const,
-			columnWrapperClassName: "justify-start gap-2 pr-2 mb-2",
+			numColumns: 2 as const,
+			columnWrapperClassName: "justify-start gap-x-2 gap-y-4 pr-2 mb-2",
 			removeClippedSubviews: true,
 			maxToRenderPerBatch: 10,
 			initialNumToRender: 10,
