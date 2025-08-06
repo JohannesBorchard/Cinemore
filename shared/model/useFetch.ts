@@ -28,7 +28,7 @@ export function useFetch<T>(fetchFunction: () => Promise<T>, autoFetch = true) {
 		if (autoFetch) {
 			fetchData()
 		}
-	}, [autoFetch, fetchData])
+	}, [])
 
 	return { data, loading, error, refetch: fetchData, reset }
 }

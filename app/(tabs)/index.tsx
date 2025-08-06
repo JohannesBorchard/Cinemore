@@ -1,35 +1,85 @@
 import { images } from "@/constants/images"
+import { fetchMovies } from "@/shared/api/tmdb"
+import { useFetch } from "@/shared/model/useFetch"
 import SearchBar from "@/shared/ui/SearchBar"
 import { useRouter } from "expo-router"
 import { SymbolView } from "expo-symbols"
-import { Image, ScrollView, Text, View } from "react-native"
+import { useCallback } from "react"
+import { ActivityIndicator, FlatList, Image, Text, View } from "react-native"
 import colors from "tailwindcss/colors"
 
 export default function Index() {
 	const router = useRouter()
 
-	return (
-		<View className="bg-slate-950 flex-1 items-center">
-			<Image source={images.bg} className="absolute w-full z-0" />
-			<ScrollView
-				className="flex-1 px-5 min-h-full pb-10 pt-20 w-full"
-				showsVerticalScrollIndicator={false}>
-				<View className="flex-row items-center gap-2 w-fit justify-center leading-none mb-5">
-					<SymbolView
-						name="film"
-						size={45}
-						tintColor={colors.purple[400]}
-						weight="medium"
-						/* style={{ marginHorizontal: "auto", marginBottom: 10 }} */
-					/>
-					{/* <Image source={icons.logo} className="w-12 h-10 mx-auto mb-5 mt-20" /> */}
-					<Text className="text-purple-300 font-bold text-4xl">Cinemore</Text>
-				</View>
-				<SearchBar
-					onPress={() => router.push("/search")}
-					placeholder="Search for a movie"
+	const fetchMoviesCallback = useCallback(() => fetchMovies({ query: "" }), [])
+
+	const {
+		data: movies,
+		loading: moviesLoading,
+		error: moviesError,
+	} = useFetch(fetchMoviesCallback)
+
+	const renderHeader = () => (
+		<View className="px-5 pt-20 pb-5">
+			<View className="flex-row items-center gap-2 w-fit justify-center leading-none mb-5">
+				<SymbolView
+					name="film"
+					size={45}
+					tintColor={colors.purple[400]}
+					weight="medium"
 				/>
-			</ScrollView>
+				<Text className="text-purple-300 font-bold text-4xl">Cinemore</Text>
+			</View>
+
+			{moviesLoading ? (
+				<ActivityIndicator
+					size="large"
+					color={colors.purple[500]}
+					className="mt-10 self-center"
+				/>
+			) : moviesError ? (
+				<Text className="text-red-500">Error: {moviesError?.message}</Text>
+			) : (
+				<>
+					<SearchBar
+						onPress={() => router.push("/search")}
+						placeholder="Search for a movie"
+					/>
+					<Text className="text-lg text-white font-bold mt-5 mb-3">
+						Latest Movies
+					</Text>
+				</>
+			)}
+		</View>
+	)
+
+	interface Movie {
+		id: number
+		title: string
+		overview?: string
+		poster_path?: string
+		backdrop_path?: string
+		release_date?: string
+		vote_average?: number
+		genre_ids?: number[]
+	}
+
+	const renderMovieItem = ({ item }: { item: Movie }) => (
+		<View className="px-5 py-2">
+			<Text className="text-white">{item.title}</Text>
+		</View>
+	)
+
+	return (
+		<View className="bg-slate-950 flex-1">
+			<Image source={images.bg} className="absolute w-full z-0" />
+			<FlatList
+				data={movies || []}
+				renderItem={renderMovieItem}
+				ListHeaderComponent={renderHeader}
+				showsVerticalScrollIndicator={false}
+				contentContainerStyle={{ paddingBottom: 40 }}
+			/>
 		</View>
 	)
 }

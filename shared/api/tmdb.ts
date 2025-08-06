@@ -1,26 +1,38 @@
 export const TMDB_CONFIG = {
 	BASE_URL: "https://api.themoviedb.org/3",
 	API_KEY: process.env.EXPO_PUBLIC_MOVIE_API_KEY,
-	headers: {
-		accept: "application/json",
-		Authorization: `Bearer ${process.env.EXPO_PUBLIC_MOVIE_API_KEY}`,
-	},
 }
 
-export async function fetchMovies({ query }: { query: string }) {
+export async function fetchMovies({
+	query,
+}: {
+	query?: string
+}): Promise<Movie[]> {
 	const endpoint = query
-		? `${TMDB_CONFIG.BASE_URL}/search/movie?query=${encodeURIComponent(query)}`
-		: `${TMDB_CONFIG.BASE_URL}/discover/movie?sort_by=popularity.desc`
+		? `${TMDB_CONFIG.BASE_URL}/search/movie?query=${encodeURIComponent(query)}&api_key=${TMDB_CONFIG.API_KEY}`
+		: `${TMDB_CONFIG.BASE_URL}/discover/movie?sort_by=popularity.desc&api_key=${TMDB_CONFIG.API_KEY}`
+
+	console.log(
+		"🌐 Fetching from:",
+		endpoint.replace(TMDB_CONFIG.API_KEY!, "API_KEY_HIDDEN")
+	)
+
 	const response = await fetch(endpoint, {
 		method: "GET",
-		headers: TMDB_CONFIG.headers,
+		headers: {
+			accept: "application/json",
+		},
 	})
 
 	if (!response.ok) {
-		console.error("Failed to fetch movies", response.statusText)
+		const errorText = await response.text()
+		console.error("❌ API Error:", response.status, errorText)
+		throw new Error(
+			`Failed to fetch movies: ${response.status} ${response.statusText}`
+		)
 	}
 
 	const data = await response.json()
-
+	console.log("✅ Movies fetched:", data.results?.length || 0)
 	return data.results
 }
