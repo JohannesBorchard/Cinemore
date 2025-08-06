@@ -1,91 +1,11 @@
+import { Movie } from "@/interfaces/interfaces"
 import { fetchMovies } from "@/shared/api/tmdb"
 import { useFetch } from "@/shared/model/useFetch"
-import SearchBar from "@/shared/ui/SearchBar"
-import { useRouter } from "expo-router"
-import React, { memo, useCallback, useMemo } from "react"
-import { ActivityIndicator, FlatList, Text, View } from "react-native"
+import { ListHeader } from "@/shared/ui/ListHeader"
+import { MovieItem } from "@/shared/ui/MovieItem"
+import React, { useCallback, useMemo } from "react"
+import { FlatList, View } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
-import colors from "tailwindcss/colors"
-
-interface Movie {
-	id: number
-	title: string
-	overview?: string
-	poster_path?: string
-	backdrop_path?: string
-	release_date?: string
-	vote_average?: number
-	genre_ids?: number[]
-}
-
-function SearchSection() {
-	const router = useRouter()
-
-	return (
-		<>
-			<SearchBar
-				onPress={() => router.push("/search")}
-				placeholder="Search for a movie"
-			/>
-			<Text className="text-2xl text-white font-bold mt-5">Latest Movies</Text>
-		</>
-	)
-}
-
-// Props ändern sich häufig - memo sinnvoll
-const LoadingErrorState = memo(function LoadingErrorState({
-	loading,
-	error,
-}: {
-	loading: boolean
-	error: Error | null
-}) {
-	if (loading) {
-		return (
-			<ActivityIndicator
-				size="large"
-				color={colors.purple[500]}
-				className="mt-10 self-center"
-			/>
-		)
-	}
-
-	if (error) {
-		return <Text className="text-red-500">Error: {error?.message}</Text>
-	}
-
-	return null
-})
-
-// FlatList Item - memo sehr wichtig für Performance
-const MovieItem = memo(function MovieItem({ item }: { item: Movie }) {
-	return (
-		<View>
-			<Text className="text-slate-400 text-base">{item.title}</Text>
-		</View>
-	)
-})
-
-// Header Komponente - ohne AppLogo, angepasstes Padding
-const ListHeader = memo(function ListHeader({
-	loading,
-	error,
-	topInset,
-}: {
-	loading: boolean
-	error: Error | null
-	topInset: number
-}) {
-	return (
-		<View
-			className="pb-5"
-			style={{ paddingTop: topInset + 100 }} // Platz für globales AppLogo
-		>
-			<LoadingErrorState loading={loading} error={error} />
-			{!loading && !error && <SearchSection />}
-		</View>
-	)
-})
 
 export default function Index() {
 	const insets = useSafeAreaInsets()
