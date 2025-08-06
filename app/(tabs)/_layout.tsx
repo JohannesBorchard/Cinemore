@@ -1,8 +1,11 @@
+import { images } from "@/constants/images"
 import { cn } from "@/shared/lib/utils"
+import { AppLogo } from "@/shared/ui/AppLogo"
 import { Tabs } from "expo-router"
 import { SymbolView, type SFSymbol } from "expo-symbols"
 import React from "react"
-import { Text, View } from "react-native"
+import { Image, Text, View } from "react-native"
+import { useSafeAreaInsets } from "react-native-safe-area-context"
 import colors from "tailwindcss/colors"
 
 function TabBarItem({
@@ -38,74 +41,95 @@ function TabBarItem({
 }
 
 const TabsLayout = () => {
+	const insets = useSafeAreaInsets()
+
 	return (
-		<Tabs
-			screenOptions={{
-				tabBarShowLabel: false,
-				tabBarItemStyle: {
-					flex: 1,
-					justifyContent: "center",
-					alignItems: "center",
-				},
-				tabBarStyle: {
-					paddingHorizontal: 0,
-					backgroundColor: colors.slate[900] /* "#0f0D23" */,
-					borderRadius: 50,
-					marginHorizontal: 10,
-					marginBottom: 36,
-					height: 54,
-					position: "absolute",
-					overflow: "hidden",
-					elevation: 0,
-					shadowOpacity: 0,
-					borderColor: "transparent",
-				},
-			}}>
-			<Tabs.Screen
-				name="index"
-				options={{
-					title: "Home",
-					headerShown: false,
-					tabBarIcon: ({ focused }) => (
-						<TabBarItem title="Home" icon="house" focused={focused} />
-					),
-				}}
+		<View className="flex-1 bg-slate-950">
+			{/* Globaler Hintergrund */}
+			<Image
+				source={images.bg}
+				className="absolute w-full h-full z-0"
+				resizeMode="cover"
+				fadeDuration={0}
 			/>
-			<Tabs.Screen
-				name="search"
-				options={{
-					title: "Search",
-					headerShown: false,
-					tabBarIcon: ({ focused }) => (
-						<TabBarItem
-							title="Search"
-							icon="magnifyingglass"
-							focused={focused}
-						/>
-					),
-				}}
-			/>
-			<Tabs.Screen
-				name="profile"
-				options={{
-					title: "Profile",
-					headerShown: false,
-					tabBarIcon: ({ focused }) => (
-						<TabBarItem title="Profile" icon="person" focused={focused} />
-					),
-				}}
-			/>
-			<Tabs.Screen
-				name="saved"
-				options={{
-					title: "Saved",
-					headerShown: false,
-					tabBarIcon: ({ focused }) => (
-						<TabBarItem title="Saved" icon="bookmark" focused={focused} />
-					),
-				}}
-			/>
-		</Tabs>
+
+			{/* Globales AppLogo - fix positioniert mit Top Safe Area */}
+			<View className="absolute w-full z-10" style={{ top: insets.top + 20 }}>
+				<View className="items-center">
+					<AppLogo />
+				</View>
+			</View>
+
+			{/* Wrapper mit globalem horizontalen Padding */}
+			<View className="flex-1 px-5">
+				<Tabs
+					screenOptions={{
+						tabBarShowLabel: false,
+						tabBarItemStyle: {
+							flex: 1,
+							justifyContent: "center",
+							alignItems: "center",
+						},
+						sceneStyle: { backgroundColor: "transparent" },
+						tabBarStyle: {
+							backgroundColor: colors.slate[900],
+							borderRadius: 50,
+							marginBottom: Math.max(36, insets.bottom + 10),
+							height: 54,
+							position: "absolute",
+							overflow: "hidden",
+							elevation: 0,
+							shadowOpacity: 0,
+							borderColor: "transparent",
+						},
+					}}>
+					<Tabs.Screen
+						name="index"
+						options={{
+							title: "Home",
+							headerShown: false,
+							tabBarIcon: ({ focused }) => (
+								<TabBarItem title="Home" icon="house" focused={focused} />
+							),
+						}}
+					/>
+					<Tabs.Screen
+						name="search"
+						options={{
+							title: "Search",
+							headerShown: false,
+							tabBarIcon: ({ focused }) => (
+								<TabBarItem
+									title="Search"
+									icon="magnifyingglass"
+									focused={focused}
+								/>
+							),
+						}}
+					/>
+					<Tabs.Screen
+						name="profile"
+						options={{
+							title: "Profile",
+							headerShown: false,
+							tabBarIcon: ({ focused }) => (
+								<TabBarItem title="Profile" icon="person" focused={focused} />
+							),
+						}}
+					/>
+					<Tabs.Screen
+						name="saved"
+						options={{
+							title: "Saved",
+							headerShown: false,
+							tabBarIcon: ({ focused }) => (
+								<TabBarItem title="Saved" icon="bookmark" focused={focused} />
+							),
+						}}
+					/>
+				</Tabs>
+			</View>
+		</View>
 	)
 }
 

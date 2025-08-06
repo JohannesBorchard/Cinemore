@@ -1,11 +1,10 @@
-import { images } from "@/constants/images"
 import { fetchMovies } from "@/shared/api/tmdb"
 import { useFetch } from "@/shared/model/useFetch"
 import SearchBar from "@/shared/ui/SearchBar"
 import { useRouter } from "expo-router"
-import { SymbolView } from "expo-symbols"
-import { memo, useCallback, useMemo } from "react"
-import { ActivityIndicator, FlatList, Image, Text, View } from "react-native"
+import React, { memo, useCallback, useMemo } from "react"
+import { ActivityIndicator, FlatList, Text, View } from "react-native"
+import { useSafeAreaInsets } from "react-native-safe-area-context"
 import colors from "tailwindcss/colors"
 
 interface Movie {
@@ -17,20 +16,6 @@ interface Movie {
 	release_date?: string
 	vote_average?: number
 	genre_ids?: number[]
-}
-
-function AppLogo() {
-	return (
-		<View className="flex-row items-center gap-2 w-fit justify-center leading-none mb-5">
-			<SymbolView
-				name="film"
-				size={45}
-				tintColor={colors.purple[400]}
-				weight="medium"
-			/>
-			<Text className="text-purple-300 font-bold text-4xl">Cinemore</Text>
-		</View>
-	)
 }
 
 function SearchSection() {
@@ -81,17 +66,21 @@ const MovieItem = memo(function MovieItem({ item }: { item: Movie }) {
 	)
 })
 
-// Header Komponente - Props ändern sich selten, memo sinnvoll
+// Header Komponente - ohne AppLogo, angepasstes Padding
 const ListHeader = memo(function ListHeader({
 	loading,
 	error,
+	topInset,
 }: {
 	loading: boolean
 	error: Error | null
+	topInset: number
 }) {
 	return (
-		<View className="pt-20 pb-5">
-			<AppLogo />
+		<View
+			className="pb-5"
+			style={{ paddingTop: topInset + 100 }} // Platz für globales AppLogo
+		>
 			<LoadingErrorState loading={loading} error={error} />
 			{!loading && !error && <SearchSection />}
 		</View>
@@ -99,6 +88,7 @@ const ListHeader = memo(function ListHeader({
 })
 
 export default function Index() {
+	const insets = useSafeAreaInsets()
 	const fetchMoviesCallback = useCallback(() => fetchMovies({ query: "" }), [])
 
 	const {
@@ -108,8 +98,14 @@ export default function Index() {
 	} = useFetch(fetchMoviesCallback)
 
 	const headerComponent = useMemo(
-		() => <ListHeader loading={moviesLoading} error={moviesError} />,
-		[moviesLoading, moviesError]
+		() => (
+			<ListHeader
+				loading={moviesLoading}
+				error={moviesError}
+				topInset={insets.top}
+			/>
+		),
+		[moviesLoading, moviesError, insets.top]
 	)
 
 	const renderMovieItem = useCallback(
@@ -122,21 +118,21 @@ export default function Index() {
 	const flatListProps = useMemo(
 		() => ({
 			showsVerticalScrollIndicator: false,
-			contentContainerStyle: { paddingBottom: 40 },
+			contentContainerStyle: {
+				paddingBottom: Math.max(140, insets.bottom + 100), // Platz für TabBar
+			},
 			numColumns: 3 as const,
 			columnWrapperClassName: "justify-start gap-2 pr-2 mb-2 flex-wrap",
-			className: "pb-32 px-5",
 			removeClippedSubviews: true,
 			maxToRenderPerBatch: 10,
 			initialNumToRender: 10,
 			windowSize: 10,
 		}),
-		[]
+		[insets.bottom]
 	)
 
 	return (
-		<View className="bg-slate-950 flex-1">
-			<Image source={images.bg} className="absolute w-full z-0" />
+		<View className="flex-1">
 			<FlatList
 				data={movies || []}
 				renderItem={renderMovieItem}
