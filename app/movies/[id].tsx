@@ -1,15 +1,15 @@
 import { fetchMovieDetails } from "@/shared/api/tmdb"
-import { Image } from "expo-image"
 import { useLocalSearchParams } from "expo-router"
 import { StatusBar } from "expo-status-bar"
 import { SymbolView } from "expo-symbols"
-import React, { useEffect, useState } from "react"
-import { ScrollView, Text, View } from "react-native"
+import React, { useEffect, useRef, useState } from "react"
+import { Animated, Text, View } from "react-native"
 import colors from "tailwindcss/colors"
 
 export default function MovieDetails() {
 	const { id } = useLocalSearchParams()
 	const [movie, setMovie] = useState<MovieDetails | null>(null)
+	const scrollY = useRef(new Animated.Value(0)).current
 
 	useEffect(() => {
 		if (typeof id === "string") {
@@ -28,20 +28,42 @@ export default function MovieDetails() {
 		return `https://image.tmdb.org/t/p/w500${posterPath}`
 	}
 
+	const imageHeight = 550
+	const animatedImageStyle = {
+		transform: [
+			{
+				scale: scrollY.interpolate({
+					inputRange: [-200, 0, 1],
+					outputRange: [1.4, 1, 1],
+					extrapolateRight: "clamp",
+				}),
+			},
+			{
+				translateY: scrollY.interpolate({
+					inputRange: [-200, 0, 1],
+					outputRange: [-80, 0, 0], // Bewegt das Bild nach oben beim Zoomen
+					extrapolateRight: "clamp",
+				}),
+			},
+		],
+	}
+
 	return (
-		<View className="flex-1 bg-slate-950 ">
+		<View className="flex-1 bg-slate-950">
 			<StatusBar hidden />
-			<ScrollView className="pb-20 ">
-				<View>
-					<Image
-						style={{ width: "100%", height: 550 }}
-						source={{
-							uri: getImageUrl(movie?.poster_path),
-						}}
-						contentFit="cover"
-						cachePolicy="memory-disk"
-					/>
-				</View>
+			<Animated.ScrollView
+				bounces
+				scrollEventThrottle={16}
+				onScroll={Animated.event(
+					[{ nativeEvent: { contentOffset: { y: scrollY } } }],
+					{ useNativeDriver: true }
+				)}>
+				<Animated.Image
+					source={{ uri: getImageUrl(movie?.poster_path) }}
+					style={[{ width: "100%", height: imageHeight }, animatedImageStyle]}
+					resizeMode="cover"
+				/>
+
 				<View className="p-5">
 					<Text className="text-slate-50 font-bold text-4xl">
 						{movie?.title}
@@ -54,9 +76,9 @@ export default function MovieDetails() {
 								size={16}
 							/>
 							<Text className="text-slate-200 text-base font-bold">
-								{Math.round(movie.vote_average / 2)}/5{" "}
+								{(movie.vote_average / 2).toFixed(1)}
 								<Text className="text-slate-400 font-normal">
-									({movie?.vote_count})
+									/5 ({movie?.vote_count})
 								</Text>
 							</Text>
 						</View>
@@ -68,7 +90,7 @@ export default function MovieDetails() {
 						</Text>
 					</View>
 				</View>
-			</ScrollView>
+			</Animated.ScrollView>
 		</View>
 	)
 }

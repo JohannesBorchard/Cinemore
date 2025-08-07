@@ -8,7 +8,7 @@ export function MovieMeta({ movie }: { movie: Movie }) {
 			<View className="flex-row items-center justify-start gap-x-1">
 				<SymbolView name="star.fill" tintColor={colors.yellow[500]} size={16} />
 				<Text className="text-slate-200 text-xs font-bold uppercase w-fu">
-					{Math.round(movie.vote_average / 2)}
+					{(movie.vote_average / 2).toFixed(1)}
 				</Text>
 			</View>
 			<Text className="text-xs text-slate-400 font-medium mt-1">
