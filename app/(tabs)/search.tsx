@@ -3,7 +3,7 @@ import { Text, View } from "react-native"
 
 const Search = () => {
 	return (
-		<View className="flex-1 pt-6 items-center">
+		<View className="flex-1 pt-32 items-center">
 			<Text className="text-purple-400 font-bold text-2xl">Search</Text>
 		</View>
 	)

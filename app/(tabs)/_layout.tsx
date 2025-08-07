@@ -22,7 +22,7 @@ export default function TabsLayout() {
 				</View>
 			</BlurView>
 
-			<View className="flex-1 px-5">
+			<View className="flex-1 px-5 ">
 				<AppTabs />
 			</View>
 		</View>
