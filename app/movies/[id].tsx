@@ -65,32 +65,38 @@ export default function MovieDetails() {
 				/>
 
 				<View className="p-5">
-					<Text className="text-slate-50 font-bold text-4xl">
-						{movie?.title}
-					</Text>
-					<View className="flex-row justify-start gap-4 mt-4 items-center">
-						<View className="flex-row items-center justify-start gap-x-1 bg-slate-800 py-1 px-2 rounded">
-							<SymbolView
-								name="star.fill"
-								tintColor={colors.yellow[500]}
-								size={16}
-							/>
-							<Text className="text-slate-200 text-base font-bold">
-								{(movie.vote_average / 2).toFixed(1)}
-								<Text className="text-slate-400 font-normal">
-									/5 ({movie?.vote_count})
-								</Text>
-							</Text>
-						</View>
-						<Text className="text-base text-slate-400 font-medium">
-							{movie.release_date?.split("-")[0] ?? "–"}
-						</Text>
-						<Text className="text-base text-slate-400 font-medium">
-							{movie.runtime} Minutes
-						</Text>
-					</View>
+					<MovieDetailsMeta movie={movie} />
 				</View>
 			</Animated.ScrollView>
+		</View>
+	)
+}
+
+function MovieDetailsMeta({ movie }: { movie: MovieDetails }) {
+	return (
+		<View>
+			<Text className="text-slate-50 font-bold text-4xl">{movie?.title}</Text>
+			<View className="flex-row justify-start gap-4 mt-4 items-center">
+				<View className="flex-row items-center justify-start gap-x-1 bg-slate-800 py-1 px-2 rounded">
+					<SymbolView
+						name="star.fill"
+						tintColor={colors.yellow[500]}
+						size={16}
+					/>
+					<Text className="text-slate-200 text-base font-bold">
+						{(movie.vote_average / 2).toFixed(1)}
+						<Text className="text-slate-400 font-normal">
+							/5 ({movie?.vote_count})
+						</Text>
+					</Text>
+				</View>
+				<Text className="text-base text-slate-400 font-medium">
+					{movie.release_date?.split("-")[0] ?? "–"}
+				</Text>
+				<Text className="text-base text-slate-400 font-medium">
+					{movie.runtime} Minutes
+				</Text>
+			</View>
 		</View>
 	)
 }
