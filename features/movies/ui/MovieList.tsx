@@ -31,6 +31,7 @@ export const MovieList = forwardRef<MovieListRef, MovieListProps>(
 			<FlatList
 				ref={flatListRef}
 				data={movies}
+				keyboardShouldPersistTaps="handled"
 				renderItem={({ item }: { item: Movie }) =>
 					item ? <MovieCard movie={item} /> : null
 				}

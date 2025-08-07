@@ -1,12 +1,16 @@
 import { MovieMeta } from "@/features/movies/ui/MovieMeta"
 import { Href, Link } from "expo-router"
 import { memo } from "react"
-import { Image, Text, TouchableOpacity } from "react-native"
+import { Image, Keyboard, Text, TouchableOpacity } from "react-native"
 
 export const MovieCard = memo(function MovieCard({ movie }: { movie: Movie }) {
+	const handlePress = () => {
+		Keyboard.dismiss()
+	}
+
 	return (
 		<Link href={`/movies/${movie.id}` as Href} asChild>
-			<TouchableOpacity className="flex-1 mx-1 mb-4">
+			<TouchableOpacity className="flex-1 mx-1 mb-4" onPress={handlePress}>
 				<Image
 					source={{
 						uri: movie.poster_path
