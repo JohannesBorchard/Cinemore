@@ -50,7 +50,7 @@ export default function MovieDetails() {
 	}
 
 	return (
-		<View className="flex-1 bg-slate-950">
+		<View className="flex-1 bg-slate-950 pb-28">
 			<StatusBar hidden />
 			<Animated.ScrollView
 				bounces
@@ -66,7 +66,7 @@ export default function MovieDetails() {
 					resizeMode="cover"
 				/>
 
-				<View className="p-5">
+				<View className="p-5 ">
 					<MovieDetailsMeta movie={movie} />
 					<MovieInfo label="Overview" value={movie?.overview} />
 					<MovieInfo
