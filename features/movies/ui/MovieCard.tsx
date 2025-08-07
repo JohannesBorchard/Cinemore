@@ -17,7 +17,9 @@ export const MovieCard = memo(function MovieCard({ movie }: { movie: Movie }) {
 					className="w-full h-64 rounded-lg"
 					resizeMode="cover"
 				/>
-				<Text className="text-base font-bold text-slate-200 mt-2">
+				<Text
+					className="text-base font-bold text-slate-200 mt-2"
+					numberOfLines={1}>
 					{movie.title}
 				</Text>
 				<View className="flex-row justify-between">

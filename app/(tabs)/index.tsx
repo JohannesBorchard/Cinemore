@@ -1,6 +1,6 @@
 import { useMovies } from "@/features/movies/model/useMovies"
 import { ListHeader } from "@/features/movies/ui/ListHeader"
-import { MovieCard } from "@/features/movies/ui/MovieItem"
+import { MovieCard } from "@/features/movies/ui/MovieCard"
 import React, { useCallback, useMemo } from "react"
 import { FlatList, View } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
