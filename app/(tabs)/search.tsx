@@ -1,21 +1,23 @@
 import { useMovies } from "@/features/movies/model/useMovies"
 import { MovieList } from "@/features/movies/ui/MovieList"
-import React from "react"
+import { useSearch } from "@/features/search/context/SearchContext"
 import { View } from "react-native"
 
-const Search = () => {
-	const { movies, loading, error } = useMovies("Superman")
+export default function Search() {
+	const { searchTerm } = useSearch()
+	const { movies, loading, error } = useMovies(searchTerm)
+
+	const title = searchTerm ? `Search for '${searchTerm}'` : "Search Movies"
 
 	return (
-		<View className="flex-1">
+		<View className="flex-1 pt-28">
 			<MovieList
-				title="Movies for 'Superman'"
+				title={title}
 				movies={movies}
 				loading={loading}
 				error={error}
+				isSearchPage={true}
 			/>
 		</View>
 	)
 }
-
-export default Search

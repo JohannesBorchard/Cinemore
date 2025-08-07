@@ -35,7 +35,7 @@ export function AppTabs() {
 					marginTop: 8,
 				},
 				sceneStyle: { backgroundColor: "transparent" },
-				animation: "shift", // oder "fade"
+				animation: "fade", // oder "fade"
 				tabBarStyle: {
 					backgroundColor: "transparent",
 					borderRadius: 50,

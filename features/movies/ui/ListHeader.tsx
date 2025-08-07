@@ -1,31 +1,25 @@
-import SearchBar from "@/shared/ui/forms/SearchBar"
+import { SearchSection } from "@/features/search/context/ui/SearchSection"
 import { LoadingErrorState } from "@/shared/ui/LoadingErrorState"
-import { useRouter } from "expo-router"
-import { memo } from "react"
+import React, { memo } from "react"
 import { Text, View } from "react-native"
 
 export const ListHeader = memo(function ListHeader({
 	title,
 	loading,
 	error,
-	topInset = 0,
+	isSearchPage = false,
 }: {
 	title: string
 	loading: boolean
 	error: Error | null
-	topInset?: number
+	isSearchPage?: boolean
 }) {
-	const router = useRouter()
-
 	return (
-		<View className="pb-5 pt-32">
+		<View className="pb-5 pt-5">
 			<LoadingErrorState loading={loading} error={error} />
 			{!loading && !error && (
 				<>
-					<SearchBar
-						onPress={() => router.push("/search")}
-						placeholder="Search for a movie"
-					/>
+					<SearchSection isSearchPage={isSearchPage} />
 					<Text className="text-2xl text-white font-bold mt-5">{title}</Text>
 				</>
 			)}

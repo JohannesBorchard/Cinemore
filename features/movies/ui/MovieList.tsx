@@ -8,6 +8,7 @@ interface MovieListProps {
 	movies: Movie[]
 	loading: boolean
 	error: Error | null
+	isSearchPage?: boolean
 }
 
 export function MovieList({
@@ -15,6 +16,7 @@ export function MovieList({
 	movies,
 	loading,
 	error,
+	isSearchPage = false,
 }: MovieListProps) {
 	const insets = useSafeAreaInsets()
 
@@ -23,7 +25,12 @@ export function MovieList({
 			data={movies}
 			renderItem={({ item }) => <MovieCard movie={item} />}
 			ListHeaderComponent={
-				<ListHeader title={title} loading={loading} error={error} />
+				<ListHeader
+					title={title}
+					loading={loading}
+					error={error}
+					isSearchPage={isSearchPage}
+				/>
 			}
 			keyExtractor={(item) => item.id.toString()}
 			showsVerticalScrollIndicator={false}
@@ -31,7 +38,7 @@ export function MovieList({
 				paddingBottom: Math.max(140, insets.bottom + 100),
 			}}
 			numColumns={2}
-			columnWrapperClassName="justify-start gap-x-2 gap-y-4 pr-2 mb-2 "
+			columnWrapperClassName="justify-start gap-x-2 gap-y-4 pr-2 mb-2"
 			removeClippedSubviews
 			maxToRenderPerBatch={10}
 			initialNumToRender={10}
