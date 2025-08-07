@@ -1,7 +1,7 @@
 import { useSearch } from "@/features/search/context/SearchContext"
 import { useFocusEffect, useRouter } from "expo-router"
 import { SymbolView } from "expo-symbols"
-import { useCallback, useEffect, useRef, useState } from "react"
+import { useCallback, useRef } from "react"
 import { Keyboard, TextInput, View } from "react-native"
 import colors from "tailwindcss/colors"
 
@@ -11,63 +11,27 @@ export function SearchSection({
 	isSearchPage?: boolean
 }) {
 	const router = useRouter()
-	const {
-		searchTerm,
-		setSearchTerm,
-		shouldAutoFocus,
-		setShouldAutoFocus,
-		justSubmitted,
-		setJustSubmitted,
-	} = useSearch()
-
-	const [inputValue, setInputValue] = useState(searchTerm)
+	const { searchTerm, setSearchTerm } = useSearch()
 	const inputRef = useRef<TextInput>(null)
 
-	// Sync input when searchTerm changes (nur auf SearchPage)
-	useEffect(() => {
-		if (isSearchPage) setInputValue(searchTerm)
-	}, [searchTerm, isSearchPage])
-
-	// Page-Focus erlaubt erneut Auto-Focus
+	// Focus bei erstmaligem Öffnen der SearchPage
 	useFocusEffect(
 		useCallback(() => {
 			if (isSearchPage) {
-				setShouldAutoFocus(true)
-			}
-		}, [isSearchPage, setShouldAutoFocus])
-	)
-
-	// Auto-Focus bei Page-Focus, wenn erlaubt und kein Submit
-	useFocusEffect(
-		useCallback(() => {
-			if (isSearchPage && shouldAutoFocus && !justSubmitted) {
 				const timer = setTimeout(() => {
 					inputRef.current?.focus()
 					if (searchTerm) {
 						inputRef.current?.setSelection(searchTerm.length, searchTerm.length)
 					}
 				}, 100)
-
 				return () => clearTimeout(timer)
 			}
-		}, [isSearchPage, shouldAutoFocus, justSubmitted, searchTerm])
+		}, [isSearchPage, searchTerm])
 	)
 
-	// Reset Submit-Flag nach Re-Renders
-	useEffect(() => {
-		if (justSubmitted) {
-			const timer = setTimeout(() => {
-				setJustSubmitted(false)
-			}, 100)
-			return () => clearTimeout(timer)
-		}
-	}, [justSubmitted, setJustSubmitted])
-
 	const handleSubmit = () => {
-		const trimmed = inputValue.trim()
+		const trimmed = searchTerm.trim()
 		setSearchTerm(trimmed)
-		setShouldAutoFocus(false)
-		setJustSubmitted(true)
 		inputRef.current?.blur()
 		Keyboard.dismiss()
 
@@ -92,8 +56,8 @@ export function SearchSection({
 			/>
 			<TextInput
 				ref={inputRef}
-				value={isSearchPage ? inputValue : ""}
-				onChangeText={(text) => isSearchPage && setInputValue(text)}
+				value={isSearchPage ? searchTerm : ""}
+				onChangeText={isSearchPage ? setSearchTerm : undefined}
 				onPressIn={handlePress}
 				onSubmitEditing={handleSubmit}
 				returnKeyType="search"
