@@ -1,6 +1,8 @@
 import { TabBarItem } from "@/shared/ui/navigation/TabBarItem"
 import { BlurView } from "expo-blur"
+import * as Haptics from "expo-haptics"
 import { Tabs } from "expo-router"
+import { Platform } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 
 export function AppTabs() {
@@ -12,6 +14,13 @@ export function AppTabs() {
 		{ name: "profile", title: "Profile", icon: "person" },
 		{ name: "saved", title: "Saved", icon: "bookmark" },
 	] as const
+
+	const handleTabPress = () => {
+		// Haptic Feedback nur auf iOS
+		if (Platform.OS === "ios") {
+			Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)
+		}
+	}
 
 	return (
 		<Tabs
@@ -26,8 +35,9 @@ export function AppTabs() {
 					marginTop: 8,
 				},
 				sceneStyle: { backgroundColor: "transparent" },
+				animation: "shift", // oder "fade"
 				tabBarStyle: {
-					backgroundColor: "transparent", // Transparent machen
+					backgroundColor: "transparent",
 					borderRadius: 50,
 					marginBottom: Math.max(36, insets.bottom + 10),
 					height: 55,
@@ -68,6 +78,9 @@ export function AppTabs() {
 								focused={focused}
 							/>
 						),
+					}}
+					listeners={{
+						tabPress: handleTabPress,
 					}}
 				/>
 			))}
