@@ -1,4 +1,5 @@
 import { MovieCard } from "@/features/movies/ui/MovieCard"
+import { SearchSection } from "@/features/search/context/ui/SearchSection"
 import { forwardRef, useImperativeHandle, useRef } from "react"
 import { FlatList, Text } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
@@ -8,7 +9,7 @@ interface MovieListProps {
 	movies: Movie[]
 	loading: boolean
 	error: Error | null
-	ListHeaderComponent?: React.ReactElement
+	isSearchPage?: boolean
 }
 
 export type MovieListRef = {
@@ -17,7 +18,7 @@ export type MovieListRef = {
 
 export const MovieList = forwardRef<MovieListRef, MovieListProps>(
 	(
-		{ title = "Latest Movies", movies, loading, error, ListHeaderComponent },
+		{ title = "Latest Movies", movies, loading, error, isSearchPage = false },
 		ref
 	) => {
 		const insets = useSafeAreaInsets()
@@ -39,7 +40,7 @@ export const MovieList = forwardRef<MovieListRef, MovieListProps>(
 				}
 				ListHeaderComponent={
 					<>
-						{ListHeaderComponent}
+						<SearchSection isSearchPage={isSearchPage} />
 						<Text className="text-2xl text-white font-bold mt-5 pb-5">
 							{title}
 						</Text>

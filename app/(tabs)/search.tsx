@@ -1,7 +1,6 @@
 import { useMovies } from "@/features/movies/model/useMovies"
 import { MovieList, MovieListRef } from "@/features/movies/ui/MovieList"
 import { useSearch } from "@/features/search/context/SearchContext"
-import { SearchSection } from "@/features/search/context/ui/SearchSection"
 import { useFocusEffect } from "expo-router"
 import { useRef } from "react"
 
@@ -23,7 +22,7 @@ export default function Search() {
 			movies={movies}
 			loading={loading}
 			error={error}
-			ListHeaderComponent={<SearchSection isSearchPage />}
+			isSearchPage
 			title={title}
 		/>
 	)
