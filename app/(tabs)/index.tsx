@@ -3,7 +3,7 @@ import { MovieList } from "@/features/movies/ui/MovieList"
 import { View } from "react-native"
 
 export default function Index() {
-	const { movies, loading, error } = useMovies("iron man")
+	const { movies, loading, error } = useMovies("")
 
 	return (
 		<View className="flex-1">
