@@ -44,9 +44,22 @@ export const MovieList = forwardRef<MovieListRef, MovieListProps>(
 				ListHeaderComponent={
 					<>
 						<SearchSection isSearchPage={isSearchPage} />
-						<Text className="text-2xl text-white font-bold mt-5 pb-5">
-							{title}
-						</Text>
+						{isSearchPage ? (
+							searchTerm ? (
+								<Text className="text-2xl font-bold mt-5 pb-5">
+									<Text className="text-white">Search for </Text>
+									<Text className="text-yellow-500">{`'${searchTerm}'`}</Text>
+								</Text>
+							) : (
+								<Text className="text-2xl text-white font-bold mt-5 pb-5">
+									Search Movies
+								</Text>
+							)
+						) : (
+							<Text className="text-2xl text-white font-bold mt-5 pb-5">
+								Latest Movies
+							</Text>
+						)}
 					</>
 				}
 				keyExtractor={(item) => item.id.toString()}
