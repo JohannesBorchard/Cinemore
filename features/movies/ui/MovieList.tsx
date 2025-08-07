@@ -5,7 +5,7 @@ import { FlatList, Text } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 
 interface MovieListProps {
-	title?: string
+	searchTerm?: string
 	movies: Movie[]
 	loading: boolean
 	error: Error | null
@@ -17,12 +17,15 @@ export type MovieListRef = {
 }
 
 export const MovieList = forwardRef<MovieListRef, MovieListProps>(
-	(
-		{ title = "Latest Movies", movies, loading, error, isSearchPage = false },
-		ref
-	) => {
+	({ searchTerm, movies, loading, error, isSearchPage = false }, ref) => {
 		const insets = useSafeAreaInsets()
 		const flatListRef = useRef<FlatList>(null)
+
+		const title = isSearchPage
+			? searchTerm
+				? `Search for '${searchTerm}'`
+				: "Search Movies"
+			: "Latest Movies"
 
 		// expose scrollToTop()
 		useImperativeHandle(ref, () => ({

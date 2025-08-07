@@ -9,8 +9,6 @@ export default function Search() {
 	const { searchTerm } = useSearch()
 	const { movies, loading, error } = useMovies(searchTerm)
 
-	const title = searchTerm ? `Search for '${searchTerm}'` : "Search Movies"
-
 	// Scroll beim Fokus auf 0
 	useFocusEffect(() => {
 		listRef.current?.scrollToTop()
@@ -23,7 +21,7 @@ export default function Search() {
 			loading={loading}
 			error={error}
 			isSearchPage
-			title={title}
+			searchTerm={searchTerm}
 		/>
 	)
 }

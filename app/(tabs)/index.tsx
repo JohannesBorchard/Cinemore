@@ -4,12 +4,5 @@ import { MovieList } from "@/features/movies/ui/MovieList"
 export default function Index() {
 	const { movies, loading, error } = useMovies("")
 
-	return (
-		<MovieList
-			title="Latest Movies"
-			movies={movies}
-			loading={loading}
-			error={error}
-		/>
-	)
+	return <MovieList movies={movies} loading={loading} error={error} />
 }
