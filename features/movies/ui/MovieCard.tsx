@@ -1,8 +1,7 @@
+import { MovieMeta } from "@/features/movies/ui/MovieMeta"
 import { Href, Link } from "expo-router"
-import { SymbolView } from "expo-symbols"
 import { memo } from "react"
-import { Image, Text, TouchableOpacity, View } from "react-native"
-import colors from "tailwindcss/colors"
+import { Image, Text, TouchableOpacity } from "react-native"
 
 export const MovieCard = memo(function MovieCard({ movie }: { movie: Movie }) {
 	return (
@@ -22,21 +21,7 @@ export const MovieCard = memo(function MovieCard({ movie }: { movie: Movie }) {
 					numberOfLines={1}>
 					{movie.title}
 				</Text>
-				<View className="flex-row justify-between">
-					<View className="flex-row items-center justify-start gap-x-1">
-						<SymbolView
-							name="star.fill"
-							tintColor={colors.yellow[500]}
-							size={16}
-						/>
-						<Text className="text-slate-200 text-xs font-bold uppercase w-fu">
-							{Math.round(movie.vote_average / 2)}
-						</Text>
-					</View>
-					<Text className="text-xs text-slate-400 font-medium mt-1">
-						{movie.release_date?.split("-")[0] ?? "–"}
-					</Text>
-				</View>
+				<MovieMeta movie={movie} />
 			</TouchableOpacity>
 		</Link>
 	)

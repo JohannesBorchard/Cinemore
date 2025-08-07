@@ -1,5 +1,4 @@
 import { SearchProvider } from "@/features/search/context/SearchContext"
-import { AppHeader } from "@/shared/ui/branding/AppHeader"
 import { Stack } from "expo-router"
 import React from "react"
 import { View } from "react-native"
@@ -9,7 +8,7 @@ export default function RootLayout() {
 	return (
 		<SearchProvider>
 			<View className="flex-1 bg-slate-950">
-				<AppHeader />
+				{/* <AppHeader /> */}
 
 				<Stack>
 					<Stack.Screen name="(tabs)" options={{ headerShown: false }} />
