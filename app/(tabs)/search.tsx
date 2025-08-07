@@ -1,7 +1,7 @@
 import { useMovies } from "@/features/movies/model/useMovies"
 import { MovieList } from "@/features/movies/ui/MovieList"
 import { useSearch } from "@/features/search/context/SearchContext"
-import { View } from "react-native"
+import { SearchSection } from "@/features/search/context/ui/SearchSection"
 
 export default function Search() {
 	const { searchTerm } = useSearch()
@@ -10,14 +10,18 @@ export default function Search() {
 	const title = searchTerm ? `Search for '${searchTerm}'` : "Search Movies"
 
 	return (
-		<View className="flex-1 pt-28">
-			<MovieList
-				title={title}
-				movies={movies}
-				loading={loading}
-				error={error}
-				isSearchPage={true}
-			/>
-		</View>
+		<MovieList
+			movies={movies}
+			loading={loading}
+			error={error}
+			ListHeaderComponent={
+				<>
+					<SearchSection isSearchPage />
+					{/* optional Fehler/Loading-Zustände */}
+					{/* <LoadingErrorState loading={loading} error={error} /> */}
+				</>
+			}
+			title={title}
+		/>
 	)
 }

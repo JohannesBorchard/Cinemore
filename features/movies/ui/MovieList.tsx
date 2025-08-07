@@ -1,6 +1,5 @@
-import { ListHeader } from "@/features/movies/ui/ListHeader"
 import { MovieCard } from "@/features/movies/ui/MovieCard"
-import { FlatList } from "react-native"
+import { FlatList, Text } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 
 interface MovieListProps {
@@ -8,7 +7,7 @@ interface MovieListProps {
 	movies: Movie[]
 	loading: boolean
 	error: Error | null
-	isSearchPage?: boolean
+	ListHeaderComponent?: React.ReactElement
 }
 
 export function MovieList({
@@ -16,7 +15,7 @@ export function MovieList({
 	movies,
 	loading,
 	error,
-	isSearchPage = false,
+	ListHeaderComponent,
 }: MovieListProps) {
 	const insets = useSafeAreaInsets()
 
@@ -25,20 +24,21 @@ export function MovieList({
 			data={movies}
 			renderItem={({ item }) => <MovieCard movie={item} />}
 			ListHeaderComponent={
-				<ListHeader
-					title={title}
-					loading={loading}
-					error={error}
-					isSearchPage={isSearchPage}
-				/>
+				<>
+					{ListHeaderComponent}
+					<Text className="text-2xl text-white font-bold mt-5 pb-5">
+						{title}
+					</Text>
+				</>
 			}
 			keyExtractor={(item) => item.id.toString()}
 			showsVerticalScrollIndicator={false}
 			contentContainerStyle={{
 				paddingBottom: Math.max(140, insets.bottom + 100),
+				paddingTop: insets.top + 65,
 			}}
 			numColumns={2}
-			columnWrapperClassName="justify-start gap-x-2 gap-y-4 pr-2 mb-2"
+			columnWrapperClassName="justify-start gap-x-2 gap-y-4 pr-2 mb-2 "
 			removeClippedSubviews
 			maxToRenderPerBatch={10}
 			initialNumToRender={10}
