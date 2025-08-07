@@ -1,7 +1,7 @@
 import { TabBarItem } from "@/shared/ui/navigation/TabBarItem"
+import { BlurView } from "expo-blur"
 import { Tabs } from "expo-router"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
-import colors from "tailwindcss/colors"
 
 export function AppTabs() {
 	const insets = useSafeAreaInsets()
@@ -21,13 +21,13 @@ export function AppTabs() {
 					flex: 1,
 					justifyContent: "center",
 					alignItems: "center",
-					paddingHorizontal: 20, // breiterer Klickbereich
-					minWidth: 90, // breiter als nur Icon,
+					paddingHorizontal: 20,
+					minWidth: 90,
 					marginTop: 8,
 				},
 				sceneStyle: { backgroundColor: "transparent" },
 				tabBarStyle: {
-					backgroundColor: colors.slate[900],
+					backgroundColor: "transparent", // Transparent machen
 					borderRadius: 50,
 					marginBottom: Math.max(36, insets.bottom + 10),
 					height: 55,
@@ -38,6 +38,21 @@ export function AppTabs() {
 					borderColor: "transparent",
 					alignItems: "center",
 				},
+				tabBarBackground: () => (
+					<BlurView
+						intensity={80}
+						tint="dark"
+						style={{
+							position: "absolute",
+							top: 0,
+							left: 0,
+							right: 0,
+							bottom: 0,
+							borderRadius: 50,
+							overflow: "hidden",
+						}}
+					/>
+				),
 			}}>
 			{screens.map((screen) => (
 				<Tabs.Screen
