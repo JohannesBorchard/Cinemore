@@ -4,7 +4,7 @@ import colors from "tailwindcss/colors"
 
 export function AppLogo() {
 	return (
-		<View className="flex-row items-center gap-2 w-fit justify-center leading-none mb-5">
+		<View className="flex-row items-center gap-2 w-fit justify-center leading-none ">
 			<SymbolView
 				name="film"
 				size={45}

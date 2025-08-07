@@ -1,7 +1,7 @@
-import { images } from "@/shared/config/images"
 import { AppLogo } from "@/shared/ui/branding/AppLogo"
 import { AppTabs } from "@/shared/ui/navigation/AppTabs"
-import { Image, View } from "react-native"
+import { BlurView } from "expo-blur"
+import { View } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 
 export default function TabsLayout() {
@@ -9,18 +9,18 @@ export default function TabsLayout() {
 
 	return (
 		<View className="flex-1 bg-slate-950">
-			<Image
-				source={images.bg}
-				className="absolute w-full h-full z-0"
-				resizeMode="cover"
-				fadeDuration={0}
-			/>
-
-			<View className="absolute w-full z-10" style={{ top: insets.top + 20 }}>
+			<BlurView
+				intensity={80}
+				tint="dark"
+				className="absolute w-full top-0 z-20"
+				style={{
+					paddingTop: insets.top + 10,
+					paddingBottom: 20,
+				}}>
 				<View className="items-center">
 					<AppLogo />
 				</View>
-			</View>
+			</BlurView>
 
 			<View className="flex-1 px-5">
 				<AppTabs />

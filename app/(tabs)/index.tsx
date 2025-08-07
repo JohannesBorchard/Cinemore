@@ -7,7 +7,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context"
 
 export default function Index() {
 	const insets = useSafeAreaInsets()
-	const { movies, loading, error } = useMovies()
+	const { movies, loading, error } = useMovies("iron man")
 
 	const headerComponent = useMemo(
 		() => <ListHeader loading={loading} error={error} topInset={insets.top} />,
