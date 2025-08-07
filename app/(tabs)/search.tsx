@@ -9,7 +9,6 @@ export default function Search() {
 	const { searchTerm } = useSearch()
 	const { movies, loading, error } = useMovies(searchTerm)
 
-	// Scroll beim Fokus auf 0
 	useFocusEffect(() => {
 		listRef.current?.scrollToTop()
 	})
