@@ -9,10 +9,10 @@ export function AppTabs() {
 	const insets = useSafeAreaInsets()
 
 	const screens = [
-		{ name: "index", title: "Home", icon: "house" },
-		{ name: "search", title: "Search", icon: "magnifyingglass" },
-		{ name: "profile", title: "Profile", icon: "person" },
-		{ name: "saved", title: "Saved", icon: "bookmark" },
+		{ name: "index", title: "Home", icon: "house", enabled: true },
+		{ name: "search", title: "Search", icon: "magnifyingglass", enabled: true },
+		{ name: "profile", title: "Profile", icon: "person", enabled: false },
+		{ name: "saved", title: "Saved", icon: "bookmark", enabled: false },
 	] as const
 
 	const handleTabPress = () => {
@@ -76,11 +76,22 @@ export function AppTabs() {
 								title={screen.title}
 								icon={screen.icon}
 								focused={focused}
+								disabled={!screen.enabled} // ← Neuer Prop
 							/>
 						),
 					}}
 					listeners={{
-						tabPress: handleTabPress,
+						tabPress: screen.enabled
+							? handleTabPress
+							: (e) => {
+									e.preventDefault() // Verhindert Navigation
+									// Optional: Haptic für "disabled" Feedback
+									if (Platform.OS === "ios") {
+										Haptics.notificationAsync(
+											Haptics.NotificationFeedbackType.Warning
+										)
+									}
+								},
 					}}
 				/>
 			))}
