@@ -8,10 +8,10 @@ export function AppLogo() {
 			<SymbolView
 				name="film"
 				size={30}
-				tintColor={colors.purple[400]}
+				tintColor={colors.yellow[400]}
 				weight="medium"
 			/>
-			<Text className="text-purple-300 font-bold text-2xl">Cinemore</Text>
+			<Text className="text-yellow-400 font-bold text-2xl">Cinemore</Text>
 		</View>
 	)
 }
