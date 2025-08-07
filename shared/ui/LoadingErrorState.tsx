@@ -13,7 +13,7 @@ export const LoadingErrorState = memo(function LoadingErrorState({
 		return (
 			<ActivityIndicator
 				size="large"
-				color={colors.purple[500]}
+				color={colors.yellow[500]}
 				className="mt-10 self-center"
 			/>
 		)

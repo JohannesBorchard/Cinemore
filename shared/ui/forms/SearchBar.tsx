@@ -23,8 +23,8 @@ function SearchBar({
 				className="text-slate-300 font-medium text-lg ml-3 flex-1  leading-tight"
 				placeholderTextColor={colors.slate[500]}
 				placeholder={placeholder}
-				cursorColor={colors.purple[500]}
-				selectionColor={colors.purple[500]}
+				cursorColor={colors.yellow[500]}
+				selectionColor={colors.yellow[500]}
 			/>
 		</View>
 	)
