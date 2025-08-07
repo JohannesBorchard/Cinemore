@@ -21,13 +21,6 @@ export const MovieList = forwardRef<MovieListRef, MovieListProps>(
 		const insets = useSafeAreaInsets()
 		const flatListRef = useRef<FlatList>(null)
 
-		const title = isSearchPage
-			? searchTerm
-				? `Search for '${searchTerm}'`
-				: "Search Movies"
-			: "Latest Movies"
-
-		// expose scrollToTop()
 		useImperativeHandle(ref, () => ({
 			scrollToTop() {
 				flatListRef.current?.scrollToOffset({ offset: 0, animated: false })
