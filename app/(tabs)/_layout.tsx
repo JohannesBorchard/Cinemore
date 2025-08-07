@@ -12,10 +12,10 @@ export default function TabsLayout() {
 			<BlurView
 				intensity={80}
 				tint="dark"
-				className="absolute w-full top-0 z-20"
+				className="w-full absolute z-10"
 				style={{
-					paddingTop: insets.top + 10,
-					paddingBottom: 20,
+					paddingTop: insets.top,
+					paddingBottom: 15,
 				}}>
 				<View className="items-center">
 					<AppLogo />

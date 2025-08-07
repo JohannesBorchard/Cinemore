@@ -7,11 +7,11 @@ export function AppLogo() {
 		<View className="flex-row items-center gap-2 w-fit justify-center leading-none ">
 			<SymbolView
 				name="film"
-				size={45}
+				size={30}
 				tintColor={colors.purple[400]}
 				weight="medium"
 			/>
-			<Text className="text-purple-300 font-bold text-4xl">Cinemore</Text>
+			<Text className="text-purple-300 font-bold text-2xl">Cinemore</Text>
 		</View>
 	)
 }

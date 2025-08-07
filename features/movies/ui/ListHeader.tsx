@@ -13,7 +13,7 @@ export const ListHeader = memo(function ListHeader({
 	topInset: number
 }) {
 	return (
-		<View className="pb-5" style={{ paddingTop: topInset + 100 }}>
+		<View className="pb-5 pt-6">
 			<LoadingErrorState loading={loading} error={error} />
 			{!loading && !error && <SearchSection />}
 		</View>
