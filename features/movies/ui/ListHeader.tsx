@@ -6,11 +6,11 @@ import { View } from "react-native"
 export const ListHeader = memo(function ListHeader({
 	loading,
 	error,
-	topInset,
+	topInset = 0,
 }: {
 	loading: boolean
 	error: Error | null
-	topInset: number
+	topInset?: number
 }) {
 	return (
 		<View className="pb-5 pt-32">
