@@ -18,7 +18,7 @@ export const ListHeader = memo(function ListHeader({
 	const router = useRouter()
 
 	return (
-		<View className="pb-5">
+		<View className="pb-5 pt-32">
 			<LoadingErrorState loading={loading} error={error} />
 			{!loading && !error && (
 				<>
