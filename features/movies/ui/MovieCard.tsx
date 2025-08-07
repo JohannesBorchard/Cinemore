@@ -34,7 +34,7 @@ export const MovieCard = memo(function MovieCard({ movie }: { movie: Movie }) {
 						</Text>
 					</View>
 					<Text className="text-xs text-slate-400 font-medium mt-1">
-						{movie.release_date.split("-")[0]}
+						{movie.release_date?.split("-")[0] ?? "–"}
 					</Text>
 				</View>
 			</TouchableOpacity>
