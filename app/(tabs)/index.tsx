@@ -6,7 +6,7 @@ export default function Index() {
 	const { movies, loading, error } = useMovies("")
 
 	return (
-		<View className="flex-1">
+		<View className="flex-1 pt-32">
 			<MovieList movies={movies} loading={loading} error={error} />
 		</View>
 	)
