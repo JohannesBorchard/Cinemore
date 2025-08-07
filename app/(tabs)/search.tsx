@@ -1,26 +1,29 @@
 import { useMovies } from "@/features/movies/model/useMovies"
-import { MovieList } from "@/features/movies/ui/MovieList"
+import { MovieList, MovieListRef } from "@/features/movies/ui/MovieList"
 import { useSearch } from "@/features/search/context/SearchContext"
 import { SearchSection } from "@/features/search/context/ui/SearchSection"
+import { useFocusEffect } from "expo-router"
+import { useRef } from "react"
 
 export default function Search() {
+	const listRef = useRef<MovieListRef>(null)
 	const { searchTerm } = useSearch()
 	const { movies, loading, error } = useMovies(searchTerm)
 
 	const title = searchTerm ? `Search for '${searchTerm}'` : "Search Movies"
 
+	// Scroll beim Fokus auf 0
+	useFocusEffect(() => {
+		listRef.current?.scrollToTop()
+	})
+
 	return (
 		<MovieList
+			ref={listRef}
 			movies={movies}
 			loading={loading}
 			error={error}
-			ListHeaderComponent={
-				<>
-					<SearchSection isSearchPage />
-					{/* optional Fehler/Loading-Zustände */}
-					{/* <LoadingErrorState loading={loading} error={error} /> */}
-				</>
-			}
+			ListHeaderComponent={<SearchSection isSearchPage />}
 			title={title}
 		/>
 	)
