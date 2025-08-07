@@ -34,7 +34,9 @@ export const MovieList = forwardRef<MovieListRef, MovieListProps>(
 			<FlatList
 				ref={flatListRef}
 				data={movies}
-				renderItem={({ item }) => <MovieCard movie={item} />}
+				renderItem={({ item }: { item: Movie }) =>
+					item ? <MovieCard movie={item} /> : null
+				}
 				ListHeaderComponent={
 					<>
 						{ListHeaderComponent}
@@ -55,6 +57,11 @@ export const MovieList = forwardRef<MovieListRef, MovieListProps>(
 				maxToRenderPerBatch={10}
 				initialNumToRender={10}
 				windowSize={10}
+				ListEmptyComponent={
+					<Text className="text-slate-400 text-left text-lg mt-1">
+						No results found.
+					</Text>
+				}
 			/>
 		)
 	}
