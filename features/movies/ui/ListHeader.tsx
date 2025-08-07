@@ -5,12 +5,12 @@ import { memo } from "react"
 import { Text, View } from "react-native"
 
 export const ListHeader = memo(function ListHeader({
-	title = "Latest Movies",
+	title,
 	loading,
 	error,
 	topInset = 0,
 }: {
-	title?: string
+	title: string
 	loading: boolean
 	error: Error | null
 	topInset?: number

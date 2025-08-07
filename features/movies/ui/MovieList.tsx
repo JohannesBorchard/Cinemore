@@ -4,26 +4,34 @@ import { FlatList } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 
 interface MovieListProps {
+	title?: string
 	movies: Movie[]
 	loading: boolean
 	error: Error | null
 }
 
-export function MovieList({ movies, loading, error }: MovieListProps) {
+export function MovieList({
+	title = "Latest Movies",
+	movies,
+	loading,
+	error,
+}: MovieListProps) {
 	const insets = useSafeAreaInsets()
 
 	return (
 		<FlatList
 			data={movies}
 			renderItem={({ item }) => <MovieCard movie={item} />}
-			ListHeaderComponent={<ListHeader loading={loading} error={error} />}
+			ListHeaderComponent={
+				<ListHeader title={title} loading={loading} error={error} />
+			}
 			keyExtractor={(item) => item.id.toString()}
 			showsVerticalScrollIndicator={false}
 			contentContainerStyle={{
 				paddingBottom: Math.max(140, insets.bottom + 100),
 			}}
 			numColumns={2}
-			columnWrapperClassName="justify-start gap-x-2 gap-y-4 pr-2 mb-2"
+			columnWrapperClassName="justify-start gap-x-2 gap-y-4 pr-2 mb-2 "
 			removeClippedSubviews
 			maxToRenderPerBatch={10}
 			initialNumToRender={10}
