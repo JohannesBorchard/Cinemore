@@ -1,66 +1,76 @@
 {
-	"expo": {
-		"name": "rn_movie_app",
-		"slug": "rn_movie_app",
-		"version": "1.0.0",
-		"orientation": "portrait",
-		"icon": "./assets/images/logo.png",
-		"scheme": "movies",
-		"userInterfaceStyle": "automatic",
-		"newArchEnabled": true,
-		"ios": {
-			"supportsTablet": true
-		},
-		"android": {
-			"adaptiveIcon": {
-				"foregroundImage": "./assets/images/logo.png",
-				"backgroundColor": "#ffffff"
-			},
-			"edgeToEdgeEnabled": true
-		},
-		"web": {
-			"bundler": "metro",
-			"output": "static",
-			"favicon": "./assets/images/logo.png",
-			"manifest": {
-				"name": "Movie App",
-				"short_name": "Movies",
-				"description": "Deine coole Movie App",
-				"start_url": "/",
-				"display": "standalone",
-				"background_color": "#020617",
-				"theme_color": "#020617",
-				"orientation": "portrait",
-				"icons": [
-					{
-						"src": "./assets/images/logo.png",
-						"sizes": "192x192",
-						"type": "image/png",
-						"purpose": "any maskable"
-					},
-					{
-						"src": "./assets/images/logo.png",
-						"sizes": "512x512",
-						"type": "image/png",
-						"purpose": "any maskable"
-					}
-				]
-			}
-		},
-		"plugins": [
-			"expo-router",
-			[
-				"expo-splash-screen",
-				{
-					"image": "./assets/images/logo.png",
-					"imageWidth": 200,
-					"resizeMode": "contain",
-					"backgroundColor": "#020617"
-				}
-			]
-		],
-		"experiments": {
-			"typedRoutes": true
-		}
-	}
+  "expo": {
+    "name": "rn_movie_app",
+    "slug": "rn_movie_app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/logo.png",
+    "scheme": "movies",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.cinemore.jb",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/logo.png",
+        "backgroundColor": "#ffffff"
+      },
+      "edgeToEdgeEnabled": true
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/images/logo.png",
+      "manifest": {
+        "name": "Movie App",
+        "short_name": "Movies",
+        "description": "Deine coole Movie App",
+        "start_url": "/",
+        "display": "standalone",
+        "background_color": "#020617",
+        "theme_color": "#020617",
+        "orientation": "portrait",
+        "icons": [
+          {
+            "src": "./assets/images/logo.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+          },
+          {
+            "src": "./assets/images/logo.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+          }
+        ]
+      }
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/images/logo.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#020617"
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "33a45ccb-697a-4ea7-9849-829187050aa9"
+      }
+    }
+  }
 }
