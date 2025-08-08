@@ -18,7 +18,7 @@
 		"android": {
 			"adaptiveIcon": {
 				"foregroundImage": "./assets/images/cinemore-app-icon@1024.png",
-				"backgroundColor": "#ffffff"
+				"backgroundColor": "#F19809"
 			},
 			"edgeToEdgeEnabled": true
 		},
@@ -32,8 +32,8 @@
 				"description": "New and trending movies.",
 				"start_url": "/",
 				"display": "standalone",
-				"background_color": "#020617",
-				"theme_color": "#020617",
+				"background_color": "#F19809",
+				"theme_color": "#F19809",
 				"orientation": "portrait",
 				"icons": [
 					{
