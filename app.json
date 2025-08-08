@@ -16,6 +16,7 @@
 			}
 		},
 		"android": {
+			"package": "com.cinemore.jb",
 			"adaptiveIcon": {
 				"foregroundImage": "./assets/images/cinemore-app-icon.png",
 				"backgroundColor": "#F19809"
