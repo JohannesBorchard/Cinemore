@@ -5,12 +5,14 @@ import { StatusBar } from "expo-status-bar"
 import { SymbolView } from "expo-symbols"
 import React, { useEffect, useRef, useState } from "react"
 import { Animated, Text, TouchableOpacity, View } from "react-native"
+import { useSafeAreaInsets } from "react-native-safe-area-context"
 import colors from "tailwindcss/colors"
 
 export default function MovieDetails() {
 	const { id } = useLocalSearchParams()
 	const [movie, setMovie] = useState<MovieDetails | null>(null)
 	const scrollY = useRef(new Animated.Value(0)).current
+	const insets = useSafeAreaInsets()
 
 	useEffect(() => {
 		if (typeof id === "string") {
@@ -50,7 +52,7 @@ export default function MovieDetails() {
 	}
 
 	return (
-		<View className="flex-1 bg-slate-950 pb-28">
+		<View className="flex-1 bg-slate-950">
 			<StatusBar hidden />
 			<Animated.ScrollView
 				bounces
@@ -66,7 +68,7 @@ export default function MovieDetails() {
 					resizeMode="cover"
 				/>
 
-				<View className="p-5 ">
+				<View className="p-5 pb-32">
 					<MovieDetailsMeta movie={movie} />
 					<MovieInfo label="Overview" value={movie?.overview} />
 					<MovieInfo
@@ -94,7 +96,12 @@ export default function MovieDetails() {
 			<TouchableOpacity
 				onPress={() => router.back()}
 				activeOpacity={0.9}
-				className="flex-row items-center justify-center gap-2 rounded-lg p-4 absolute bottom-10 self-center overflow-hidden">
+				style={{
+					position: "absolute",
+					bottom: insets.bottom + 10,
+					alignSelf: "center",
+				}}
+				className="flex-row items-center justify-center gap-2 rounded-lg p-4 overflow-hidden">
 				<BlurView intensity={80} tint="dark" className="absolute inset-0" />
 				<SymbolView name="chevron.backward" size={20} tintColor={"white"} />
 				<Text className="text-slate-100 text-lg">Back to All Movies</Text>
