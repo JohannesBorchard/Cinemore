@@ -56,9 +56,10 @@
 			[
 				"expo-splash-screen",
 				{
-					"image": "./assets/images/cinemore-splash-screen.png",
+					"image": "./assets/images/cinemore-splash-icon.png",
 					"resizeMode": "contain",
-					"backgroundColor": "#F19809"
+					"backgroundColor": "#F19809",
+					"imageWidth": 200
 				}
 			]
 		],
