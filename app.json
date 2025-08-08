@@ -4,7 +4,7 @@
 		"slug": "rn_movie_app",
 		"version": "1.0.0",
 		"orientation": "portrait",
-		"icon": "./assets/images/cinemore-app-icon@1024.png",
+		"icon": "./assets/images/cinemore-app-icon.png",
 		"scheme": "movies",
 		"userInterfaceStyle": "automatic",
 		"newArchEnabled": true,
@@ -17,7 +17,7 @@
 		},
 		"android": {
 			"adaptiveIcon": {
-				"foregroundImage": "./assets/images/cinemore-app-icon@1024.png",
+				"foregroundImage": "./assets/images/cinemore-app-icon.png",
 				"backgroundColor": "#F19809"
 			},
 			"edgeToEdgeEnabled": true
@@ -25,7 +25,7 @@
 		"web": {
 			"bundler": "metro",
 			"output": "static",
-			"favicon": "./assets/images/cinemore-app-icon@1024.png",
+			"favicon": "./assets/images/cinemore-app-icon.png",
 			"manifest": {
 				"name": "Cinemore",
 				"short_name": "Cinemore",
@@ -37,13 +37,13 @@
 				"orientation": "portrait",
 				"icons": [
 					{
-						"src": "./assets/images/cinemore-app-icon@1024.png",
+						"src": "./assets/images/cinemore-app-icon.png",
 						"sizes": "192x192",
 						"type": "image/png",
 						"purpose": "any maskable"
 					},
 					{
-						"src": "./assets/images/cinemore-app-icon@1024.png",
+						"src": "./assets/images/cinemore-app-icon.png",
 						"sizes": "512x512",
 						"type": "image/png",
 						"purpose": "any maskable"
@@ -56,7 +56,7 @@
 			[
 				"expo-splash-screen",
 				{
-					"image": "./assets/images/cinemore-splash-screen@6-9.png",
+					"image": "./assets/images/cinemore-splash-screen.png",
 					"resizeMode": "contain",
 					"backgroundColor": "#F19809"
 				}
